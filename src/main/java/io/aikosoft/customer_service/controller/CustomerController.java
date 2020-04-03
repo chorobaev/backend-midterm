@@ -2,11 +2,16 @@ package io.aikosoft.customer_service.controller;
 
 import io.aikosoft.customer_service.model.Customer;
 import io.aikosoft.customer_service.repository.CustomerRepository;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -32,7 +37,9 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/add")
-    public String addCustomer() {
+    public String addCustomer(Model model) {
+        model.addAttribute("customer", new Customer());
+
         return "add";
     }
 
@@ -48,8 +55,17 @@ public class CustomerController {
     }
 
     @PostMapping(value = "/add-customer")
-    public String addCustomer(Customer customer) {
-        customerRepository.save(customer);
+    public String addNewCustomer(@Valid Customer customer, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "add";
+        }
+
+        try {
+            customerRepository.save(customer);
+        } catch (ConstraintViolationException ex) {
+            System.out.println("Exception: " + ex.getConstraintName());
+            return "redirect:/add";
+        }
         return "redirect:/customers";
     }
 
@@ -60,7 +76,10 @@ public class CustomerController {
     }
 
     @PostMapping(value = "/update-customer")
-    public String updateCustomer(Customer customer) {
+    public String updateCustomer(@Valid Customer customer, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "update";
+        }
         boolean exists = customerRepository.existsById(customer.getId());
         if (exists) {
             customerRepository.deleteById(customer.getId());

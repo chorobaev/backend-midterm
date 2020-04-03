@@ -1,6 +1,8 @@
 package io.aikosoft.customer_service.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Customer {
@@ -8,14 +10,23 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(nullable = false)
     private String firstName;
+
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(nullable = false)
     private String lastName;
+
+    @NotNull
+    @Size(min = 3, max = 50)
     @Column(nullable = false, unique = true)
     private String emailAddress;
+
     private String jobTitle;
-    @Column(nullable = false)
     private String mobilePhone;
     private String city;
     private String webPage;
