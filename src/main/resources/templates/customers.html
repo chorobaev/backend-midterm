@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Customers</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<h2>Customers</h2>
+<div th:unless="${#lists.isEmpty(customers)}">
+    <table>
+        <tr class="customerHeadline">
+            <td>No</td>
+            <td>Full name</td>
+            <td>Email</td>
+            <td>Job title</td>
+            <td>Mobile phone</td>
+            <td>City</td>
+            <td>Web page</td>
+        </tr>
+
+        <tr th:each="customer, iter : ${customers}">
+            <td th:text="${(iter.index + 1) + '.'}">No</td>
+            <td th:text="${customer.firstName + ' ' + customer.lastName}">Full name name</td>
+            <td th:text="${customer.emailAddress}">Email address</td>
+            <td>
+                <span th:if="${customer.jobTitle}" th:text="${customer.jobTitle}">Job title</span>
+                <span th:if="${customer.jobTitle eq null}">-</span>
+            </td>
+            <td th:text="${customer.mobilePhone}">Mobile phone</td>
+            <td>
+                <span th:if="${customer.city}" th:text="${customer.city}">City</span>
+                <span th:if="${customer.city eq ''}">-</span>
+            </td>
+            <td>
+                <span th:if="${customer.webPage}" th:text="${customer.webPage}">Web page</span>
+                <span th:if="${customer.webPage eq ''}">-</span>
+            </td>
+            <td>
+                <form method="POST" th:action="@{/remove-customer(id = ${customer.id})}">
+                    <input type="submit" value="remove"/>
+                </form>
+            </td>
+            <td>
+                <form method="GET" th:action="@{/update/{id}(id=${customer.id})}">
+                    <input type="submit" value="edit"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<div th:if="${#lists.isEmpty(customers)}">
+    <p>No customers</p>
+</div>
+<hr/>
+<div class="customerHeadline">
+    <a href="../add">Add customer</a>
+</div>
+</body>
+</html>

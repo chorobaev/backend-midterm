@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${'Update customer No. ' + customer.id}"></title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<h3>Add a book</h3>
+<form method="POST" th:action="@{/update-customer}">
+    <input type="number" hidden="hidden" name="id" th:value="${customer.id}">
+    <label for="firstName">First name:</label>
+    <input type="text" name="firstName" size="50" th:value="${customer.firstName}"><br>
+    <label for="lastName">Last name:</label>
+    <input type="text" name="lastName" size="50" th:value="${customer.lastName}"><br>
+    <label for="emailAddress">Email address:</label>
+    <input type="text" name="emailAddress" size="50" th:value="${customer.emailAddress}"><br>
+    <label for="jobTitle">Job title:</label>
+    <input type="text" name="jobTitle" size="50" th:value="${customer.jobTitle}"><br>
+    <label for="mobilePhone">Mobile phone:</label>
+    <input type="text" name="mobilePhone" size="50" th:value="${customer.mobilePhone}"><br>
+    <label for="city">City:</label>
+    <input type="text" name="city" size="50" th:value="${customer.city}"><br>
+    <label for="webPage">Web page:</label>
+    <input type="text" name="webPage" size="50" th:value="${customer.webPage}"><br>
+    <input type="submit" value="Update">
+</form>
+</body>
+</html>

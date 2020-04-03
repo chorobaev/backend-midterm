@@ -1,0 +1,16 @@
+body {
+    background-color: #cccccc;
+    font-family: arial,helvetica,sans-serif;
+}
+tr {
+    font-size: 12pt;
+}
+label {
+    font-weight: bold;
+}
+table {
+    border-spacing: 20px;
+}
+.customerHeadline {
+    font-weight: bold;
+}
