@@ -3,9 +3,9 @@ Customer Service is a spring boot demo web application
 which is built for educational purpose.<br> 
 I hope its interface is enough intuitive and user friendly.
 
-Follow [this](http://165.22.75.211:8080/customer-service) link to check it out.
+Follow [this](http://159.89.168.193:8080/customer-service) link to check it out.
 
-**Note**: _As the project deployed to a tomcat server, 
+**Note**: _As the project deployed to a tomcat server, and there is no domain,
 its home directory is_ `./customer-service`.
 
 ## Security
